@@ -8,8 +8,7 @@ public class Customers {
 	public String Address;
 	public String Phone;
 
-	public Customers(int id, String name, int age, String address, String phone) {
-		this.ID = id;
+	public Customers(String name, int age, String address, String phone) {
 		this.Name = name;
 		this.Age = age;
 		this.Address = address;

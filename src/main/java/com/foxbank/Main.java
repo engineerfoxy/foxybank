@@ -43,7 +43,7 @@ public class Main {
         System.out.print("Enter customer age: "); int age = user_input.nextInt();
         System.out.print("Enter customer address: "); String address = user_input.next();
         System.out.print("Enter customer phone: "); String phone = user_input.next();
-        Customers c = new Customers(12345,name,age,address,phone);
+        Customers c = new Customers(name,age,address,phone);
         System.out.println("Created: "+c);
     }
     
