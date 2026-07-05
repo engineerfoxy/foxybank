@@ -1,6 +1,13 @@
 package com.foxbank;
 
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Scanner;
+
+import com.foxbank.template.Accounts;
+import com.foxbank.template.Customers;
+import com.foxbank.main_pipeline.bank_service;
 
 public class Main {
     static Scanner user_input = new Scanner(System.in);
@@ -16,45 +23,28 @@ public class Main {
                     "7. -> Withdraw\n"+
                     "0. -> Quit the app");
                     System.out.print("Command: ");
-            char input = user_input.next().charAt(0);
+            int input = user_input.nextInt();
             switch (input) {
-                case '1':
-                    System.out.println("Add a customer");
-                    add_customer();
-                    break;
-                case '2':
-                    System.out.println("List customers");
-                    list_customer();
-                    break;
-                case '3':
-                    System.out.println("Remove Customer");
-                    remove_customer();
-                    break;
-                case '4':
-                    System.out.println("Open an account");
-                    break;
-                case '5':
-                    System.out.println("Close the Account");
-                    break;
-                case '6':
-                    System.out.println("Deposit");
-                    break;
-                case '7':
-                    System.out.println("Withdraw");
-                    break;
-                case '0': {
-                    System.out.println("Goodbye, see ya later :)");
-                    return;
-                }
-                default:
-                    System.out.println("invalid command you entered");
-
+                case 1 -> add_customer();
+                case 2 -> list_customer();
+                case 3 -> remove_customer();
+                case 4 -> open_an_account();
+                case 5 -> close_the_account();
+                case 6 -> deposit();
+                case 7 -> withdraw();
+                case 0 -> { System.out.println("Goodbye, see ya later :)"); return; }
+                default -> System.out.println("invalid command you entered");
             }
         }
     }
-    
-    public static void add_customer() {
 
+    public static void add_customer() {
+        System.out.print("Enter customer name: "); String name = user_input.next();
+        System.out.print("Enter customer age: "); int age = user_input.nextInt();
+        System.out.print("Enter customer address: "); String address = user_input.next();
+        System.out.print("Enter customer phone: "); String phone = user_input.next();
+        Customers c = new Customers(12345,name,age,address,phone);
+        System.out.println("Created: "+c);
     }
     
     public static void list_customer() {
@@ -63,5 +53,21 @@ public class Main {
     
     public static void remove_customer() {
       
+    }
+
+    public static void open_an_account() {
+
+    }
+
+    public static void close_the_account() {
+
+    }
+
+    public static void deposit() {
+
+    }
+
+    public static void withdraw() {
+
     }
 }

@@ -4,15 +4,13 @@ import java.sql.*;
 
 public class DatabaseManager {
     public static final String DB_URL = "jdbc:sqlite:bankdb.db";
-    public static final String DB_USERNAME = "myusername";
-    public static final String DB_PASSWORD = "mypassword";
 
     private static DatabaseManager instance;
     private Connection connection;
 
     private DatabaseManager() {
         try {
-            connection = DriverManager.getConnection(DB_URL, DB_USERNAME, DB_PASSWORD);
+            connection = DriverManager.getConnection(DB_URL);
         } catch (SQLException e) {
             throw new RuntimeException(e.getMessage());
         }
@@ -27,7 +25,7 @@ public class DatabaseManager {
     public Connection getConnection() {
         try {
             if (connection == null || connection.isClosed()) {
-                connection = DriverManager.getConnection(DB_URL, DB_USERNAME, DB_PASSWORD);
+                connection = DriverManager.getConnection(DB_URL);
             }
         } catch (SQLException e) {
             throw new RuntimeException(e.getMessage());
@@ -36,6 +34,8 @@ public class DatabaseManager {
     }
 
     public void createTables() {
-
+        String SQLPrompt_1 = "";
+        String SQLPrompt_2 = "";
+        String SQLPrompt_3 = "";
     }
 }
