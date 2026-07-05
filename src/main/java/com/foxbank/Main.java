@@ -5,12 +5,15 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Scanner;
 
+import com.foxbank.customer.Customer_Services;
 import com.foxbank.template.Accounts;
 import com.foxbank.template.Customers;
 import com.foxbank.main_pipeline.bank_service;
 
 public class Main {
-    static Scanner user_input = new Scanner(System.in);
+    private static final bank_service services = new bank_service();
+    private static final Scanner user_input = new Scanner(System.in);
+
     public static void main(String[] args) {
         while (true) {
             System.out.println("----- MENU -----\n"+
@@ -26,7 +29,7 @@ public class Main {
             int input = user_input.nextInt();
             switch (input) {
                 case 1 -> add_customer();
-                case 2 -> list_customer();
+                case 2 -> show_all_customer();
                 case 3 -> remove_customer();
                 case 4 -> open_an_account();
                 case 5 -> close_the_account();
@@ -43,16 +46,18 @@ public class Main {
         System.out.print("Enter customer age: "); int age = user_input.nextInt();
         System.out.print("Enter customer address: "); String address = user_input.next();
         System.out.print("Enter customer phone: "); String phone = user_input.next();
-        Customers c = new Customers(name,age,address,phone);
-        System.out.println("Created: "+c);
+        Customers c = services.make_new_customer(name,age,address,phone);
+        System.out.println("Created customer: "+c);
     }
     
-    public static void list_customer() {
-      
+    public static void show_all_customer() {
+
     }
-    
+
     public static void remove_customer() {
-      
+        System.out.print("Enter customer name: "); String name = user_input.next();
+        Customers c = services.remove_from_db(name);
+        System.out.println("Removed customer: "+c);
     }
 
     public static void open_an_account() {

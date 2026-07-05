@@ -4,6 +4,7 @@ import com.foxbank.DBmanage.DatabaseManager;
 import com.foxbank.template.Customers;
 
 import java.sql.*;
+import java.util.List;
 
 public class Customer_Services {
     private final Connection conn;
@@ -26,6 +27,18 @@ public class Customer_Services {
             return customers;
         } catch (SQLException e) {
             throw new RuntimeException("failed to save customer: "+e.getMessage());
+        }
+    }
+
+    public Customers remove(Customers customers) {
+        try (PreparedStatement ps = conn.prepareStatement(
+                "DELETE FROM bank_customers WHERE Name = ?;"
+        )) {
+            ps.setString(1, customers.getName());
+            ps.execute();
+            return customers;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
     }
 }

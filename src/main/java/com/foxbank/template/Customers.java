@@ -8,6 +8,10 @@ public class Customers {
 	public String Address;
 	public String Phone;
 
+	public Customers(String name) {
+		this.Name = name;
+	}
+
 	public Customers(String name, int age, String address, String phone) {
 		this.Name = name;
 		this.Age = age;

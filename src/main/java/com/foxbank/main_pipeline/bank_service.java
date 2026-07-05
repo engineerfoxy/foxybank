@@ -9,7 +9,7 @@ public class bank_service {
     private final Account_Services m_account_services;
     private final Customer_Services m_customer_services;
 
-    public bank_service(Account_Services accountServices, Customer_Services mCustomerServices) {
+    public bank_service() {
         this.m_customer_services = new Customer_Services();
         this.m_account_services = new Account_Services();
     }
@@ -18,8 +18,7 @@ public class bank_service {
         return m_customer_services.save(new Customers(name, age, address, phone));
     }
 
-    public Accounts remove_from_db() {
-
-        return null;
+    public Customers remove_from_db(String name) {
+        return m_customer_services.remove(new Customers(name));
     }
 }
