@@ -4,6 +4,7 @@ import com.foxbank.DBmanage.DatabaseManager;
 import com.foxbank.template.Customers;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Customer_Services {
@@ -40,5 +41,38 @@ public class Customer_Services {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public static Customers find_all_in_db_by_id(int ID) {
+        try (PreparedStatement ps = conn.prepareStatement("SELECT * FROM bank_customers WHERE ID = ?;")) {
+            ps.setInt(1,ID);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) return map_customer(rs);
+            return null;
+        } catch (SQLException e) {
+            throw new RuntimeException(e.getMessage());
+        }
+    }
+
+    public List<Customers> find_all_in_db() {
+        List<Customers> list_all = new ArrayList<>();
+        try (Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery("SELECT * FROM bank_customers")) {
+                while (rs.next())
+                    list_all.add(map_customer(rs));
+                return list_all;
+        } catch (SQLException e) {
+            throw new RuntimeException(e.getMessage());
+        }
+    }
+
+    private Customers map_customer(ResultSet rs) throws SQLException {
+        Customers c = new Customers();
+        c.setID(rs.getInt("ID"));
+        c.setName(rs.getString("Name"));
+        c.setAge(rs.getInt("Age"));
+        c.setAddress(rs.getString("Address"));
+        c.setPhone(rs.getString("Phone"));
+        return c;
     }
 }

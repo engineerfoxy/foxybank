@@ -5,8 +5,7 @@ import java.util.List;
 
 import com.foxbank.DBmanage.DatabaseManager;
 import com.foxbank.template.Accounts;
-import com.foxbank.DBmanage.gen_rand_numb;
-import com.foxbank.template.Customers;
+import com.foxbank.template.gen_rand_numb;
 
 public class Account_Services {
     private final Connection conn;

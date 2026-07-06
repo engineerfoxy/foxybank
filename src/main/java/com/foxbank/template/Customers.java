@@ -8,6 +8,8 @@ public class Customers {
 	public String Address;
 	public String Phone;
 
+	public Customers() {}
+
 	public Customers(String name) {
 		this.Name = name;
 	}

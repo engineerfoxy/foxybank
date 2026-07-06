@@ -3,6 +3,7 @@ package com.foxbank;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.List;
 import java.util.Scanner;
 
 import com.foxbank.customer.Customer_Services;
@@ -51,7 +52,9 @@ public class Main {
     }
     
     public static void show_all_customer() {
-
+        List<Customers> list_customers = services.find_all_customers();
+        if (list_customers.isEmpty()) System.out.println("There is not customers.");
+        list_customers.forEach(System.out::println);
     }
 
     public static void remove_customer() {
@@ -61,7 +64,10 @@ public class Main {
     }
 
     public static void open_an_account() {
-
+        System.out.print("Enter Customer ID: "); int customerID = user_input.nextInt();
+        System.out.print("Enter Status Type: "); String accountType = user_input.next();
+        Accounts a = services.make_new_account(customerID, accountType);
+        System.out.println("Created account: "+a);
     }
 
     public static void close_the_account() {
