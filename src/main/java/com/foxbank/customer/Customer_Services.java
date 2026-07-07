@@ -43,7 +43,7 @@ public class Customer_Services {
         }
     }
 
-    public static Customers find_all_in_db_by_id(int ID) {
+    public Customers find_all_in_db_by_id(int ID) {
         try (PreparedStatement ps = conn.prepareStatement("SELECT * FROM bank_customers WHERE ID = ?;")) {
             ps.setInt(1,ID);
             ResultSet rs = ps.executeQuery();

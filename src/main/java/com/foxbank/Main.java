@@ -33,7 +33,7 @@ public class Main {
                 case 2 -> show_all_customer();
                 case 3 -> remove_customer();
                 case 4 -> open_an_account();
-                case 5 -> close_the_account();
+                case 5 -> toogle_active_the_account();
                 case 6 -> deposit();
                 case 7 -> withdraw();
                 case 0 -> { System.out.println("Goodbye, see ya later :)"); return; }
@@ -70,7 +70,7 @@ public class Main {
         System.out.println("Created account: "+a);
     }
 
-    public static void close_the_account() {
+    public static void toogle_active_the_account() {
 
     }
 

@@ -26,7 +26,7 @@ public class bank_service {
     }
 
     public Accounts make_new_account(int customerID, String accountType) {
-        Customers customers = Customer_Services.find_all_in_db_by_id(customerID);
+        Customers customers = m_customer_services.find_all_in_db_by_id(customerID);
         if (customers == null) throw new RuntimeException("Customer not found!");
         return m_account_services.save(new Accounts(customerID, gen_rand_numb.generate_account_number(), accountType));
     }
