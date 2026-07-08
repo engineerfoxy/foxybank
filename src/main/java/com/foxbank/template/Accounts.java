@@ -10,12 +10,19 @@ public class Accounts {
     public BigDecimal Balance;
     public String Status;
 
+    public Accounts() {}
+
+    public Accounts(String account_ID) {
+        this.Account_ID = account_ID;
+        this.Status = "ACTIVE";
+    }
+
     public Accounts(int customer_ID, String account_ID, String account_Type) {
         this.Customer_ID = customer_ID;
         this.Account_ID = account_ID;
         this.Account_Type = account_Type;
         this.Balance = BigDecimal.ZERO;
-        this.Status = "Active";
+        this.Status = "ACTIVE";
     }
 
     public int getID() { return ID; }

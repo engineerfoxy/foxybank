@@ -28,10 +28,19 @@ public class bank_service {
     public Accounts make_new_account(int customerID, String accountType) {
         Customers customers = m_customer_services.find_all_in_db_by_id(customerID);
         if (customers == null) throw new RuntimeException("Customer not found!");
-        return m_account_services.save(new Accounts(customerID, gen_rand_numb.generate_account_number(), accountType));
+        String generate_random_number = gen_rand_numb.generate_account_number();
+        return m_account_services.save(new Accounts(customerID, generate_random_number, accountType));
     }
 
     public List<Customers> find_all_customers() {
         return m_customer_services.find_all_in_db();
     }
+
+    public Accounts toggle_active_account(String account_ID) {
+        Accounts accounts = m_account_services.active_disable_account(new Accounts(account_ID));
+        if (accounts == null) { throw new RuntimeException("account wasn't in database"); }
+        return accounts;
+    }
+
+
 }

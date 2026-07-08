@@ -6,6 +6,7 @@ import java.sql.Statement;
 import java.util.List;
 import java.util.Scanner;
 
+import com.foxbank.customer.Account_Services;
 import com.foxbank.customer.Customer_Services;
 import com.foxbank.template.Accounts;
 import com.foxbank.template.Customers;
@@ -22,7 +23,7 @@ public class Main {
                     "2. -> List customers\n"+
                     "3. -> Remove Customer\n"+
                     "4. -> Open an account\n"+
-                    "5. -> Close the Account\n"+
+                    "5. -> Active/Suspend the Account\n"+
                     "6. -> Deposit\n"+
                     "7. -> Withdraw\n"+
                     "0. -> Quit the app");
@@ -71,7 +72,10 @@ public class Main {
     }
 
     public static void toogle_active_the_account() {
-
+        System.out.print("Sorry , this section is disabled");
+//        System.out.print("Enter Account ID: "); String AccountID = user_input.next();
+//        Accounts a = services.toggle_active_account(AccountID);
+//        System.out.print("Operation done: "+a);
     }
 
     public static void deposit() {

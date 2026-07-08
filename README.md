@@ -1,3 +1,5 @@
+# PROJECT IS UNDER DEVELOPMENT
+
 # Foxy Core Banking
 
 A modular, SQLite‑based core banking system built with Java 21. Provides customer management, account handling, deposits, and withdrawals through a clean CLI interface with a layered architecture.
