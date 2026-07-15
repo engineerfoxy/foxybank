@@ -104,8 +104,8 @@ src/main/java/com/foxbank/
 - [x] Maven project scaffold
 - [x] SQLite database connection
 - [x] Customer CRUD (create / remove)
-- [ ] Account CRUD (open / close / list)
-- [ ] Deposit and withdrawal logic
+- [x] Account CRUD (open / close / list)
+- [x] Deposit and withdrawal logic
 - [ ] Database table creation on startup
 - [ ] Spring Boot migration (REST API + JPA)
 - [ ] Unit tests (JUnit + Mockito)
