@@ -1,5 +1,4 @@
 package com.foxbank.history;
 
-public class Transaction {
-
+public class get_history {
 }

@@ -78,4 +78,17 @@ public class Account_Services {
         a.setStatus(rs.getString("bank_accountStatus"));
         return a;
     }
+
+    public void updateBalance(Accounts accounts) {
+        try (PreparedStatement ps = conn.prepareStatement(
+                "UPDATE bank_accounts SET bank_balance =? , bank_accountStatus = ? WHERE ID = ?"
+        )) {
+            ps.setBigDecimal(1, accounts.getBalance());
+            ps.setString(2, accounts.getStatus());
+            ps.setInt(3, accounts.getID());
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e.getMessage());
+        }
+    }
 }

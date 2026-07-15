@@ -1,5 +1,6 @@
 package com.foxbank;
 
+import java.math.BigDecimal;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -11,6 +12,7 @@ import com.foxbank.customer.Customer_Services;
 import com.foxbank.template.Accounts;
 import com.foxbank.template.Customers;
 import com.foxbank.main_pipeline.bank_service;
+import com.foxbank.template.Transaction;
 
 public class Main {
     private static final bank_service services = new bank_service();
@@ -34,9 +36,10 @@ public class Main {
                 case 2 -> show_all_customer();
                 case 3 -> remove_customer();
                 case 4 -> open_an_account();
-                case 5 -> toogle_active_the_account();
+                case 5 -> toggle_active_the_account();
                 case 6 -> deposit();
                 case 7 -> withdraw();
+                case 8 -> transfer();
                 case 0 -> { System.out.println("Goodbye, see ya later :)"); return; }
                 default -> System.out.println("invalid command you entered");
             }
@@ -71,7 +74,7 @@ public class Main {
         System.out.println("Created account: "+a);
     }
 
-    public static void toogle_active_the_account() {
+    public static void toggle_active_the_account() {
         System.out.print("Sorry , this section is disabled");
 //        System.out.print("Enter Account ID: "); String AccountID = user_input.next();
 //        Accounts a = services.toggle_active_account(AccountID);
@@ -79,10 +82,40 @@ public class Main {
     }
 
     public static void deposit() {
-
+        System.out.print("Enter Account ID: "); int AccountID = user_input.nextInt();
+        System.out.print("Amount: "); BigDecimal amount = user_input.nextBigDecimal();
+        System.out.print("Description? : "); String desc = user_input.next();
+        Transaction t = services.depositAmount(AccountID, amount, desc);
+        System.out.println("deposited: "+t);
     }
 
     public static void withdraw() {
-
+        System.out.print("Enter Account ID: "); int AccountID = user_input.nextInt();
+        System.out.print("Amount: "); BigDecimal amount = user_input.nextBigDecimal();
+        System.out.print("Description? : "); String desc = user_input.next();
+        Transaction t = services.withdrawAmount(AccountID, amount, desc);
+        System.out.println("withdrawn: "+t);
     }
+
+    public static void transfer() {
+        System.out.print("From account: "); int from = user_input.nextInt();
+        System.out.print("To account: "); int to = user_input.nextInt();
+        System.out.print("Amount: "); BigDecimal amt = new BigDecimal(user_input.nextLine());
+        services.Transfer(from, to, amt, "Transfer");
+        System.out.println("Transfer complete");
+    }
+
+    private static void transactionHistory() {
+        System.out.print("Account number: "); int acc = user_input.nextInt();
+        List<Transaction> txs = services.getTransactionHistory(acc);
+        if (txs.isEmpty()) { System.out.println("No transactions"); return; }
+        txs.forEach(System.out::println);
+    }
+
+//    private static void customerAccounts() {
+//        System.out.print("Customer ID: "); Long custId = Long.parseLong(user_input.nextLine());
+//        List<Accounts> accounts = services.listCustomerAccounts(custId);
+//        if (accounts.isEmpty()) { System.out.println("No accounts"); return; }
+//        accounts.forEach(System.out::println);
+//    }
 }
