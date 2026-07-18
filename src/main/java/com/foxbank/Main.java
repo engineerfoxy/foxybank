@@ -25,9 +25,12 @@ public class Main {
                     "2. -> List customers\n"+
                     "3. -> Remove Customer\n"+
                     "4. -> Open an account\n"+
-                    "5. -> Active/Suspend the Account\n"+
+                    "5. -> List Accounts\n"+
                     "6. -> Deposit\n"+
                     "7. -> Withdraw\n"+
+                    "8. -> Transfer\n"+
+                    "9. -> Transaction history\n"+
+                    "10. -> All Transaction history\n"+
                     "0. -> Quit the app");
                     System.out.print("Command: ");
             int input = user_input.nextInt();
@@ -36,10 +39,12 @@ public class Main {
                 case 2 -> show_all_customer();
                 case 3 -> remove_customer();
                 case 4 -> open_an_account();
-                case 5 -> toggle_active_the_account();
+                case 5 -> list_accounts();
                 case 6 -> deposit();
                 case 7 -> withdraw();
                 case 8 -> transfer();
+                case 9 -> transactionHistory();
+                case 10 -> transactionHistoryAll();
                 case 0 -> { System.out.println("Goodbye, see ya later :)"); return; }
                 default -> System.out.println("invalid command you entered");
             }
@@ -74,11 +79,10 @@ public class Main {
         System.out.println("Created account: "+a);
     }
 
-    public static void toggle_active_the_account() {
-        System.out.print("Sorry , this section is disabled");
-//        System.out.print("Enter Account ID: "); String AccountID = user_input.next();
-//        Accounts a = services.toggle_active_account(AccountID);
-//        System.out.print("Operation done: "+a);
+    public static void list_accounts() {
+        List<Accounts> list_accounts = services.find_all_accounts();
+        if (list_accounts.isEmpty()) System.out.println("There is not accounts.");
+        list_accounts.forEach(System.out::println);
     }
 
     public static void deposit() {
@@ -100,9 +104,15 @@ public class Main {
     public static void transfer() {
         System.out.print("From account: "); int from = user_input.nextInt();
         System.out.print("To account: "); int to = user_input.nextInt();
-        System.out.print("Amount: "); BigDecimal amt = new BigDecimal(user_input.nextLine());
+        System.out.print("Amount: "); BigDecimal amt = user_input.nextBigDecimal();
         services.Transfer(from, to, amt, "Transfer");
         System.out.println("Transfer complete");
+    }
+
+    private static void transactionHistoryAll() {
+        List<Transaction> list_transactions = services.find_all_transactions();
+        if (list_transactions == null) System.out.println("No transaction do.");
+        list_transactions.forEach(System.out::println);
     }
 
     private static void transactionHistory() {
@@ -111,11 +121,4 @@ public class Main {
         if (txs.isEmpty()) { System.out.println("No transactions"); return; }
         txs.forEach(System.out::println);
     }
-
-//    private static void customerAccounts() {
-//        System.out.print("Customer ID: "); Long custId = Long.parseLong(user_input.nextLine());
-//        List<Accounts> accounts = services.listCustomerAccounts(custId);
-//        if (accounts.isEmpty()) { System.out.println("No accounts"); return; }
-//        accounts.forEach(System.out::println);
-//    }
 }

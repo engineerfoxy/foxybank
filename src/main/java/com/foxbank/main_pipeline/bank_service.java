@@ -52,6 +52,10 @@ public class bank_service {
         return accounts;
     }
 
+    public List<Transaction> find_all_transactions() { return m_transaction_services.listAll(); }
+
+    public List<Accounts> find_all_accounts() { return m_account_services.Listing_all(); }
+
     public Transaction depositAmount(int accountNumber, BigDecimal amount, String description) {
         if (amount.compareTo(BigDecimal.ZERO) <= 0)
             throw new IllegalArgumentException("Balance is not enough");
@@ -111,7 +115,7 @@ public class bank_service {
         m_transaction_services.writeIntoHistory(debit);
 
         Transaction credit = new Transaction(String.valueOf(from.getCustomer_ID()), "TRANSFER_IN", amount, desc);
-        debit.setRelatedAccountNumber(toAccountNumber);
+        credit.setRelatedAccountNumber(toAccountNumber);
         m_transaction_services.writeIntoHistory(debit);
     }
 

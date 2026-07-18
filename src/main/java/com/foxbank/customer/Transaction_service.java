@@ -34,7 +34,7 @@ public class Transaction_service {
         }
     }
 
-    public List<Transaction> listAll(Transaction transaction) {
+    public List<Transaction> listAll() {
         List<Transaction> transactionList = new ArrayList<>();
         try (Statement stmt = conn.createStatement();
         ResultSet rs = stmt.executeQuery("SELECT * FROM history_transactions;")) {
