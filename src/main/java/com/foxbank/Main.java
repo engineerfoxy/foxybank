@@ -1,21 +1,16 @@
 package com.foxbank;
 
 import java.math.BigDecimal;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.List;
 import java.util.Scanner;
 
-import com.foxbank.customer.Account_Services;
-import com.foxbank.customer.Customer_Services;
 import com.foxbank.template.Accounts;
 import com.foxbank.template.Customers;
-import com.foxbank.main_pipeline.bank_service;
+import com.foxbank.main_pipeline.BankService;
 import com.foxbank.template.Transaction;
 
 public class Main {
-    private static final bank_service services = new bank_service();
+    private static final BankService services = new BankService();
     private static final Scanner user_input = new Scanner(System.in);
 
     public static void main(String[] args) {
@@ -35,11 +30,11 @@ public class Main {
                     System.out.print("Command: ");
             int input = user_input.nextInt();
             switch (input) {
-                case 1 -> add_customer();
-                case 2 -> show_all_customer();
-                case 3 -> remove_customer();
-                case 4 -> open_an_account();
-                case 5 -> list_accounts();
+                case 1 -> addCustomer();
+                case 2 -> showAllCustomer();
+                case 3 -> removeCustomer();
+                case 4 -> openAnAccount();
+                case 5 -> listAccounts();
                 case 6 -> deposit();
                 case 7 -> withdraw();
                 case 8 -> transfer();
@@ -51,36 +46,36 @@ public class Main {
         }
     }
 
-    public static void add_customer() {
+    public static void addCustomer() {
         System.out.print("Enter customer name: "); String name = user_input.next();
         System.out.print("Enter customer age: "); int age = user_input.nextInt();
         System.out.print("Enter customer address: "); String address = user_input.next();
         System.out.print("Enter customer phone: "); String phone = user_input.next();
-        Customers c = services.make_new_customer(name,age,address,phone);
+        Customers c = services.makeNewCustomer(name,age,address,phone);
         System.out.println("Created customer: "+c);
     }
     
-    public static void show_all_customer() {
-        List<Customers> list_customers = services.find_all_customers();
+    public static void showAllCustomer() {
+        List<Customers> list_customers = services.findAllCustomers();
         if (list_customers.isEmpty()) System.out.println("There is not customers.");
         list_customers.forEach(System.out::println);
     }
 
-    public static void remove_customer() {
+    public static void removeCustomer() {
         System.out.print("Enter customer name: "); String name = user_input.next();
-        Customers c = services.remove_from_db(name);
+        Customers c = services.removeFromDb(name);
         System.out.println("Removed customer: "+c);
     }
 
-    public static void open_an_account() {
+    public static void openAnAccount() {
         System.out.print("Enter Customer ID: "); int customerID = user_input.nextInt();
         System.out.print("Enter Status Type: "); String accountType = user_input.next();
-        Accounts a = services.make_new_account(customerID, accountType);
+        Accounts a = services.makeNewAccount(customerID, accountType);
         System.out.println("Created account: "+a);
     }
 
-    public static void list_accounts() {
-        List<Accounts> list_accounts = services.find_all_accounts();
+    public static void listAccounts() {
+        List<Accounts> list_accounts = services.findAllAccounts();
         if (list_accounts.isEmpty()) System.out.println("There is not accounts.");
         list_accounts.forEach(System.out::println);
     }
@@ -110,7 +105,7 @@ public class Main {
     }
 
     private static void transactionHistoryAll() {
-        List<Transaction> list_transactions = services.find_all_transactions();
+        List<Transaction> list_transactions = services.findAllTransactions();
         if (list_transactions == null) System.out.println("No transaction do.");
         list_transactions.forEach(System.out::println);
     }

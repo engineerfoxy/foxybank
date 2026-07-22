@@ -31,27 +31,27 @@ public class Accounts {
         this.ID = ID;
     }
 
-    public int getCustomer_ID() {
+    public int getCustomerID() {
         return Customer_ID;
     }
 
-    public void setCustomer_ID(int customer_ID) {
+    public void setCustomerID(int customer_ID) {
         Customer_ID = customer_ID;
     }
 
-    public String getAccount_ID() {
+    public String getAccountID() {
         return Account_ID;
     }
 
-    public void setAccount_ID(String account_ID) {
+    public void setAccountID(String account_ID) {
         Account_ID = account_ID;
     }
 
-    public String getAccount_Type() {
+    public String getAccountType() {
         return Account_Type;
     }
 
-    public void setAccount_Type(String account_Type) {
+    public void setAccountType(String account_Type) {
         Account_Type = account_Type;
     }
 

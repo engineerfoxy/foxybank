@@ -7,14 +7,14 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Customer_Services {
+public class CustomerServices {
     private final Connection conn;
 
-    public Customer_Services() {
+    public CustomerServices() {
         this.conn = DatabaseManager.getInstance().getConnection();
     }
 
-    public Customers save(Customers customers) {
+    public Customers Save(Customers customers) {
         try (PreparedStatement ps = conn.prepareStatement(
                 "INSERT INTO bank_customers (Name,Age,address,phone) VALUES (?,?,?,?);",
                 Statement.RETURN_GENERATED_KEYS)) {
@@ -31,7 +31,7 @@ public class Customer_Services {
         }
     }
 
-    public Customers remove(Customers customers) {
+    public Customers Remove(Customers customers) {
         try (PreparedStatement ps = conn.prepareStatement(
                 "DELETE FROM bank_customers WHERE Name = ?;"
         )) {
@@ -43,30 +43,30 @@ public class Customer_Services {
         }
     }
 
-    public Customers find_all_in_db_by_id(int ID) {
+    public Customers findAllInDbById(int ID) {
         try (PreparedStatement ps = conn.prepareStatement("SELECT * FROM bank_customers WHERE ID = ?;")) {
             ps.setInt(1,ID);
             ResultSet rs = ps.executeQuery();
-            if (rs.next()) return map_customer(rs);
+            if (rs.next()) return mapCustomer(rs);
             return null;
         } catch (SQLException e) {
             throw new RuntimeException(e.getMessage());
         }
     }
 
-    public List<Customers> find_all_in_db() {
+    public List<Customers> findAllInDb() {
         List<Customers> list_all = new ArrayList<>();
         try (Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery("SELECT * FROM bank_customers")) {
                 while (rs.next())
-                    list_all.add(map_customer(rs));
+                    list_all.add(mapCustomer(rs));
                 return list_all;
         } catch (SQLException e) {
             throw new RuntimeException(e.getMessage());
         }
     }
 
-    private Customers map_customer(ResultSet rs) throws SQLException {
+    private Customers mapCustomer(ResultSet rs) throws SQLException {
         Customers c = new Customers();
         c.setID(rs.getInt("ID"));
         c.setName(rs.getString("Name"));

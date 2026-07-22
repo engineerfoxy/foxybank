@@ -7,10 +7,10 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Transaction_service {
+public class TransactionService {
     private final Connection conn;
 
-    public Transaction_service() {
+    public TransactionService() {
         this.conn = DatabaseManager.getInstance().getConnection();
     }
 

@@ -6,23 +6,21 @@ import java.util.List;
 
 import com.foxbank.DBmanage.DatabaseManager;
 import com.foxbank.template.Accounts;
-import com.foxbank.template.Customers;
-import com.foxbank.template.gen_rand_numb;
 
-public class Account_Services {
+public class AccountServices {
     private final Connection conn;
 
-    public Account_Services() {
+    public AccountServices() {
         this.conn = DatabaseManager.getInstance().getConnection();
     }
 
-    public Accounts save(Accounts accounts) {
+    public Accounts Save(Accounts accounts) {
         try (PreparedStatement ps = conn.prepareStatement(
                 "INSERT INTO bank_accounts (bank_accountID,bank_customerID,bank_accountType,bank_balance,bank_accountStatus) VALUES (?, ?, ?, ?, ?);")
         ) {
-            ps.setString(1, accounts.getAccount_ID());
-            ps.setInt(2, accounts.getCustomer_ID());
-            ps.setString(3,accounts.getAccount_Type());
+            ps.setString(1, accounts.getAccountID());
+            ps.setInt(2, accounts.getCustomerID());
+            ps.setString(3,accounts.getAccountType());
             ps.setBigDecimal(4, accounts.getBalance());
             ps.setString(5, accounts.getStatus());
             ps.executeUpdate();
@@ -34,11 +32,11 @@ public class Account_Services {
         }
     }
 
-    public Accounts active_disable_account(Accounts accounts) {
+    public Accounts ActiveDisableAccount(Accounts accounts) {
         try (PreparedStatement ps = conn.prepareStatement(
                 "SELECT bank_accountStatus FROM bank_accounts;"
         )) {
-            ps.setString(1, accounts.getAccount_ID());
+            ps.setString(1, accounts.getAccountID());
             ps.execute();
             return accounts;
         } catch (SQLException e) {
@@ -46,7 +44,7 @@ public class Account_Services {
         }
     }
 
-    public Accounts find_by_id(int account_id) {
+    public Accounts FindById(int account_id) {
         try (PreparedStatement ps = conn.prepareStatement("SELECT * FROM bank_accounts WHERE bank_accountID = ?;")) {
             ps.setInt(1, account_id);
             ResultSet rs = ps.executeQuery();
@@ -57,7 +55,7 @@ public class Account_Services {
         }
     }
 
-    public List<Accounts> Listing_all() {
+    public List<Accounts> listingAll() {
         List<Accounts> list_all = new ArrayList<>();
         try (Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery("SELECT * FROM bank_accounts")) {
@@ -72,8 +70,8 @@ public class Account_Services {
     public Accounts mapAccounts(ResultSet rs) throws SQLException {
         Accounts a = new Accounts();
         a.setID(rs.getInt("ID"));
-        a.setAccount_ID(rs.getString("bank_accountID"));
-        a.setAccount_Type(rs.getString("bank_customerID"));
+        a.setAccountID(rs.getString("bank_accountID"));
+        a.setAccountType(rs.getString("bank_customerID"));
         a.setBalance(rs.getBigDecimal("bank_balance"));
         a.setStatus(rs.getString("bank_accountStatus"));
         return a;

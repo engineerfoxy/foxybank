@@ -1,4 +1,4 @@
 package com.foxbank.history;
 
-public class get_history {
+public class GetHistory {
 }
